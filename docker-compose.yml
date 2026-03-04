@@ -1,0 +1,7 @@
+services:
+  web:
+    build: .
+    container_name: ziebarth-website
+    restart: unless-stopped
+    ports:
+      - "3080:80"
