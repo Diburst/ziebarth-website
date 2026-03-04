@@ -1,60 +1,103 @@
+import { HamburgerMenu } from "./hamburger-menu";
+
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-6 py-24">
-      {/* Hero */}
-      <section className="text-center animate-fade-in">
-        <h1 className="text-5xl sm:text-6xl font-bold tracking-tight text-text-primary">
-          Thomas Ziebarth
-        </h1>
-        <p className="mt-4 text-xl text-text-secondary">Software Developer</p>
-      </section>
+    <>
+      <HamburgerMenu />
 
-      {/* Social Links */}
-      <nav className="flex items-center gap-6 mt-10 animate-fade-in delay-1">
-        <SocialLink
-          href="https://github.com/thomasziebarth"
-          label="GitHub"
-          icon={<GitHubIcon />}
-        />
-        <SocialLink
-          href="https://linkedin.com/in/thomas-ziebarth"
-          label="LinkedIn"
-          icon={<LinkedInIcon />}
-        />
-        <SocialLink
-          href="https://tasktogether.app"
-          label="Task Together"
-          icon={<TaskTogetherIcon />}
-        />
-      </nav>
+      <main className="min-h-screen flex flex-col items-center justify-center px-6 py-24">
+        {/* Hero */}
+        <section className="text-center animate-fade-in">
+          <h1 className="text-5xl sm:text-6xl font-bold tracking-tight text-text-primary">
+            Thomas Ziebarth
+          </h1>
+          <p className="mt-4 text-xl text-text-secondary">
+            Software Developer
+          </p>
+        </section>
 
-      {/* Projects */}
-      <section className="mt-20 w-full max-w-lg animate-fade-in delay-3">
-        <h2 className="text-sm font-medium uppercase tracking-widest text-text-secondary text-center mb-8">
-          <span className="inline-flex items-center gap-3">
-            <span className="w-8 h-px bg-border" />
-            Projects
-            <span className="w-8 h-px bg-border" />
-          </span>
-        </h2>
-
-        <div className="space-y-4">
-          <ProjectCard
-            title="Task Together"
-            description="A collaborative task management app for teams, built with Next.js and React Native."
-            href="https://tasktogether.app"
+        {/* Social Links */}
+        <nav className="flex items-center gap-6 mt-10 animate-fade-in delay-1">
+          <SocialLink
+            href="https://github.com/thomasziebarth"
+            label="GitHub"
+            icon={<GitHubIcon />}
           />
-          <div className="rounded-xl border border-border border-dashed p-6 text-center text-text-secondary text-sm">
-            More coming soon...
-          </div>
-        </div>
-      </section>
+          <SocialLink
+            href="https://linkedin.com/in/thomas-ziebarth"
+            label="LinkedIn"
+            icon={<LinkedInIcon />}
+          />
+          <SocialLink
+            href="https://tasktogether.app"
+            label="Task Together"
+            icon={<TaskTogetherIcon />}
+          />
+        </nav>
 
-      {/* Footer */}
-      <footer className="mt-24 text-text-secondary text-sm animate-fade-in delay-5">
-        &copy; 2026 Thomas Ziebarth
-      </footer>
-    </main>
+        {/* Projects */}
+        <section className="mt-20 w-full max-w-lg animate-fade-in delay-2">
+          <SectionHeading>Projects</SectionHeading>
+          <div className="space-y-4">
+            <ProjectCard
+              title="Task Together"
+              description="A collaborative task management app for teams, built with Next.js and React Native."
+              href="https://tasktogether.app"
+            />
+            <div className="rounded-xl border border-border border-dashed p-6 text-center text-text-secondary text-sm">
+              More coming soon...
+            </div>
+          </div>
+        </section>
+
+        {/* Resume */}
+        <section className="mt-20 w-full max-w-lg animate-fade-in delay-3">
+          <SectionHeading>Resume</SectionHeading>
+          <div className="space-y-6">
+            <ResumeEntry
+              title="Software Developer"
+              org="Freelance"
+              period="2024 — Present"
+              description="Building full-stack web and mobile applications for clients and personal projects."
+            />
+            <ResumeEntry
+              title="Task Together"
+              org="Personal Project"
+              period="2025 — Present"
+              description="Collaborative task management platform built with Next.js, React Native, and PostgreSQL."
+            />
+          </div>
+        </section>
+
+        {/* Contact */}
+        <div className="mt-16 animate-fade-in delay-4">
+          <a
+            href="mailto:thomas@ziebarth.ca"
+            className="inline-flex items-center gap-2 text-sm text-text-secondary transition-colors duration-200 hover:text-accent"
+          >
+            <MailIcon />
+            thomas@ziebarth.ca
+          </a>
+        </div>
+
+        {/* Footer */}
+        <footer className="mt-16 text-text-secondary text-sm animate-fade-in delay-5">
+          &copy; 2026 Thomas Ziebarth
+        </footer>
+      </main>
+    </>
+  );
+}
+
+function SectionHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="text-sm font-medium uppercase tracking-widest text-text-secondary text-center mb-8">
+      <span className="inline-flex items-center gap-3">
+        <span className="w-8 h-px bg-border" />
+        {children}
+        <span className="w-8 h-px bg-border" />
+      </span>
+    </h2>
   );
 }
 
@@ -121,14 +164,36 @@ function ProjectCard({
   );
 }
 
+function ResumeEntry({
+  title,
+  org,
+  period,
+  description,
+}: {
+  title: string;
+  org: string;
+  period: string;
+  description: string;
+}) {
+  return (
+    <div className="group">
+      <div className="flex items-baseline justify-between gap-4">
+        <h3 className="text-base font-semibold text-text-primary">{title}</h3>
+        <span className="text-xs text-text-secondary whitespace-nowrap">
+          {period}
+        </span>
+      </div>
+      <p className="mt-0.5 text-sm text-accent/70">{org}</p>
+      <p className="mt-2 text-sm text-text-secondary leading-relaxed">
+        {description}
+      </p>
+    </div>
+  );
+}
+
 function GitHubIcon() {
   return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-    >
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
       <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
     </svg>
   );
@@ -136,12 +201,7 @@ function GitHubIcon() {
 
 function LinkedInIcon() {
   return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-    >
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
       <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
     </svg>
   );
@@ -161,6 +221,24 @@ function TaskTogetherIcon() {
     >
       <path d="M9 11l3 3L22 4" />
       <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+    </svg>
+  );
+}
+
+function MailIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="2" y="4" width="20" height="16" rx="2" />
+      <path d="M22 7l-10 7L2 7" />
     </svg>
   );
 }
