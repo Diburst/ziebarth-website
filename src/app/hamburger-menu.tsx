@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-
-const FAMILY_MEMBERS = [{ name: "Thomas", href: "/" }];
+import { MEMBERS } from "@/constants";
 
 export function HamburgerMenu() {
   const [open, setOpen] = useState(false);
@@ -66,7 +65,7 @@ export function HamburgerMenu() {
 
       {open && (
         <nav className="absolute top-12 left-0 min-w-[160px] rounded-xl border border-border bg-surface p-2 shadow-lg shadow-black/30 animate-fade-in">
-          {FAMILY_MEMBERS.map((member) => (
+          {MEMBERS.map((member) => (
             <a
               key={member.name}
               href={member.href}

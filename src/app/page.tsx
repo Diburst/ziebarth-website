@@ -1,6 +1,16 @@
 import { HamburgerMenu } from "./hamburger-menu";
+import { DEFAULT_MEMBER } from "@/constants";
+import type { SocialLink as SocialLinkType } from "@/constants";
+
+const ICON_MAP: Record<SocialLinkType["icon"], () => React.ReactElement> = {
+  github: GitHubIcon,
+  linkedin: LinkedInIcon,
+  taskTogether: TaskTogetherIcon,
+};
 
 export default function Home() {
+  const m = DEFAULT_MEMBER;
+
   return (
     <>
       <HamburgerMenu />
@@ -9,41 +19,30 @@ export default function Home() {
         {/* Hero */}
         <section className="text-center animate-fade-in">
           <h1 className="text-5xl sm:text-6xl font-bold tracking-tight text-text-primary">
-            Thomas Ziebarth
+            {m.name}
           </h1>
-          <p className="mt-4 text-xl text-text-secondary">
-            Software Developer
-          </p>
+          <p className="mt-4 text-xl text-text-secondary">{m.tagline}</p>
         </section>
 
         {/* Social Links */}
         <nav className="flex items-center gap-6 mt-10 animate-fade-in delay-1">
-          <SocialLink
-            href="https://github.com/thomasziebarth"
-            label="GitHub"
-            icon={<GitHubIcon />}
-          />
-          <SocialLink
-            href="https://linkedin.com/in/thomas-ziebarth"
-            label="LinkedIn"
-            icon={<LinkedInIcon />}
-          />
-          <SocialLink
-            href="https://tasktogether.app"
-            label="Task Together"
-            icon={<TaskTogetherIcon />}
-          />
+          {m.socials.map((s) => (
+            <SocialLink
+              key={s.label}
+              href={s.href}
+              label={s.label}
+              icon={ICON_MAP[s.icon]()}
+            />
+          ))}
         </nav>
 
         {/* Projects */}
         <section className="mt-20 w-full max-w-lg animate-fade-in delay-2">
           <SectionHeading>Projects</SectionHeading>
           <div className="space-y-4">
-            <ProjectCard
-              title="Task Together"
-              description="A collaborative task management app for teams, built with Next.js and React Native."
-              href="https://tasktogether.app"
-            />
+            {m.projects.map((p) => (
+              <ProjectCard key={p.title} {...p} />
+            ))}
             <div className="rounded-xl border border-border border-dashed p-6 text-center text-text-secondary text-sm">
               More coming soon...
             </div>
@@ -53,36 +52,93 @@ export default function Home() {
         {/* Resume */}
         <section className="mt-20 w-full max-w-lg animate-fade-in delay-3">
           <SectionHeading>Resume</SectionHeading>
-          <div className="space-y-6">
-            <ResumeEntry
-              title="Software Developer"
-              org="Freelance"
-              period="2024 — Present"
-              description="Building full-stack web and mobile applications for clients and personal projects."
-            />
-            <ResumeEntry
-              title="Task Together"
-              org="Personal Project"
-              period="2025 — Present"
-              description="Collaborative task management platform built with Next.js, React Native, and PostgreSQL."
-            />
+
+          {m.resume.summary && (
+            <p className="text-sm text-text-secondary leading-relaxed mb-8 text-center">
+              {m.resume.summary}
+            </p>
+          )}
+
+          {/* Experience */}
+          <div className="space-y-8">
+            {m.resume.experience.map((entry) => (
+              <div key={`${entry.org}-${entry.period}`}>
+                <div className="flex items-baseline justify-between gap-4">
+                  <h3 className="text-base font-semibold text-text-primary">
+                    {entry.title}
+                  </h3>
+                  <span className="text-xs text-text-secondary whitespace-nowrap">
+                    {entry.period}
+                  </span>
+                </div>
+                <p className="mt-0.5 text-sm text-accent/70">{entry.org}</p>
+                <ul className="mt-2 space-y-1.5">
+                  {entry.bullets.map((bullet, i) => (
+                    <li
+                      key={i}
+                      className="text-sm text-text-secondary leading-relaxed pl-4 relative before:content-['·'] before:absolute before:left-0 before:text-text-secondary/50"
+                    >
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
+
+          {/* Education */}
+          {m.resume.education.length > 0 && (
+            <div className="mt-10">
+              <h3 className="text-xs font-medium uppercase tracking-widest text-text-secondary mb-4">
+                Education
+              </h3>
+              {m.resume.education.map((edu) => (
+                <div key={edu.school}>
+                  <p className="text-sm font-semibold text-text-primary">
+                    {edu.degree}
+                  </p>
+                  <p className="text-sm text-text-secondary">
+                    {edu.school} — {edu.year}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Skills */}
+          {m.resume.skills.length > 0 && (
+            <div className="mt-8">
+              <h3 className="text-xs font-medium uppercase tracking-widest text-text-secondary mb-4">
+                Skills
+              </h3>
+              <ul className="space-y-1.5">
+                {m.resume.skills.map((skill, i) => (
+                  <li
+                    key={i}
+                    className="text-sm text-text-secondary leading-relaxed pl-4 relative before:content-['·'] before:absolute before:left-0 before:text-text-secondary/50"
+                  >
+                    {skill}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </section>
 
         {/* Contact */}
         <div className="mt-16 animate-fade-in delay-4">
           <a
-            href="mailto:thomas@ziebarth.ca"
+            href={`mailto:${m.email}`}
             className="inline-flex items-center gap-2 text-sm text-text-secondary transition-colors duration-200 hover:text-accent"
           >
             <MailIcon />
-            thomas@ziebarth.ca
+            {m.email}
           </a>
         </div>
 
         {/* Footer */}
         <footer className="mt-16 text-text-secondary text-sm animate-fade-in delay-5">
-          &copy; 2026 Thomas Ziebarth
+          &copy; 2026 {m.name}
         </footer>
       </main>
     </>
@@ -161,33 +217,6 @@ function ProjectCard({
         </svg>
       </span>
     </a>
-  );
-}
-
-function ResumeEntry({
-  title,
-  org,
-  period,
-  description,
-}: {
-  title: string;
-  org: string;
-  period: string;
-  description: string;
-}) {
-  return (
-    <div className="group">
-      <div className="flex items-baseline justify-between gap-4">
-        <h3 className="text-base font-semibold text-text-primary">{title}</h3>
-        <span className="text-xs text-text-secondary whitespace-nowrap">
-          {period}
-        </span>
-      </div>
-      <p className="mt-0.5 text-sm text-accent/70">{org}</p>
-      <p className="mt-2 text-sm text-text-secondary leading-relaxed">
-        {description}
-      </p>
-    </div>
   );
 }
 
