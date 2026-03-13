@@ -136,10 +136,27 @@ const thomas: MemberConfig = {
   },
 };
 
+// ─── Victoria ───────────────────────────────────────────────────────────────
+
+const victoria: MemberConfig = {
+  name: "Victoria",
+  tagline: "",
+  email: "",
+  href: "/victoria",
+  socials: [],
+  projects: [],
+  resume: {
+    summary: "",
+    experience: [],
+    education: [],
+    skills: [],
+  },
+};
+
 // ─── All members ────────────────────────────────────────────────────────────
 // Export as an array so the hamburger menu and future routing can iterate.
 
-export const MEMBERS: MemberConfig[] = [thomas];
+export const MEMBERS: MemberConfig[] = [thomas, victoria];
 
 // Default / current member (used by the landing page)
 export const DEFAULT_MEMBER = thomas;
