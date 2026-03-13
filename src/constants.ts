@@ -52,12 +52,12 @@ const thomas: MemberConfig = {
   socials: [
     {
       label: "GitHub",
-      href: "https://github.com/thomasziebarth",
+      href: "https://github.com/Diburst",
       icon: "github",
     },
     {
       label: "LinkedIn",
-      href: "https://linkedin.com/in/thomas-ziebarth",
+      href: "https://linkedin.com/in/thomaszie",
       icon: "linkedin",
     },
     {
@@ -136,10 +136,39 @@ const thomas: MemberConfig = {
   },
 };
 
+// ─── Victoria ───────────────────────────────────────────────────────────────
+
+const victoria: MemberConfig = {
+  name: "Victoria",
+  tagline: "",
+  email: "",
+  href: "/victoria",
+  socials: [],
+  projects: [],
+  resume: {
+    summary: "",
+    experience: [],
+    education: [],
+    skills: [],
+  },
+};
+
 // ─── All members ────────────────────────────────────────────────────────────
 // Export as an array so the hamburger menu and future routing can iterate.
 
-export const MEMBERS: MemberConfig[] = [thomas];
+export const MEMBERS: MemberConfig[] = [thomas, victoria];
 
 // Default / current member (used by the landing page)
 export const DEFAULT_MEMBER = thomas;
+
+// ─── Apps ───────────────────────────────────────────────────────────────────
+
+export type AppLink = {
+  name: string;
+  href: string;
+};
+
+export const APPS: AppLink[] = [
+  { name: "Photos", href: "https://photos.ziebarth.ca" },
+  { name: "Cookbook", href: "https://cookbook.ziebarth.ca" },
+];

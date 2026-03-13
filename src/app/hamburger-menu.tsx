@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { MEMBERS } from "@/constants";
+import { MEMBERS, APPS } from "@/constants";
 
 export function HamburgerMenu() {
   const [open, setOpen] = useState(false);
@@ -65,6 +65,9 @@ export function HamburgerMenu() {
 
       {open && (
         <nav className="absolute top-12 left-0 min-w-[160px] rounded-xl border border-border bg-surface p-2 shadow-lg shadow-black/30 animate-fade-in">
+          <div className="px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-text-secondary">
+            People
+          </div>
           {MEMBERS.map((member) => (
             <a
               key={member.name}
@@ -73,6 +76,20 @@ export function HamburgerMenu() {
               className="block rounded-lg px-4 py-2.5 text-sm text-text-primary transition-colors duration-150 hover:bg-surface-hover hover:text-accent"
             >
               {member.name}
+            </a>
+          ))}
+          <div className="my-1 border-t border-border" />
+          <div className="px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-text-secondary">
+            Apps
+          </div>
+          {APPS.map((app) => (
+            <a
+              key={app.name}
+              href={app.href}
+              onClick={() => setOpen(false)}
+              className="block rounded-lg px-4 py-2.5 text-sm text-text-primary transition-colors duration-150 hover:bg-surface-hover hover:text-accent"
+            >
+              {app.name}
             </a>
           ))}
         </nav>
