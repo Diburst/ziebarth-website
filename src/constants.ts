@@ -152,6 +152,6 @@ export type AppLink = {
 };
 
 export const APPS: AppLink[] = [
-  { name: "Photos", href: "/photos" },
-  { name: "Cookbook", href: "/cookbook" },
+  { name: "Photos", href: "https://photos.ziebarth.ca" },
+  { name: "Cookbook", href: "https://cookbook.ziebarth.ca" },
 ];
