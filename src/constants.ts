@@ -143,3 +143,15 @@ export const MEMBERS: MemberConfig[] = [thomas];
 
 // Default / current member (used by the landing page)
 export const DEFAULT_MEMBER = thomas;
+
+// ─── Apps ───────────────────────────────────────────────────────────────────
+
+export type AppLink = {
+  name: string;
+  href: string;
+};
+
+export const APPS: AppLink[] = [
+  { name: "Photos", href: "/photos" },
+  { name: "Cookbook", href: "/cookbook" },
+];
