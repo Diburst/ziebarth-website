@@ -52,12 +52,12 @@ const thomas: MemberConfig = {
   socials: [
     {
       label: "GitHub",
-      href: "https://github.com/thomasziebarth",
+      href: "https://github.com/Diburst",
       icon: "github",
     },
     {
       label: "LinkedIn",
-      href: "https://linkedin.com/in/thomas-ziebarth",
+      href: "https://linkedin.com/in/thomaszie",
       icon: "linkedin",
     },
     {
