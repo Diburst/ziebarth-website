@@ -17,8 +17,15 @@ export default function Home() {
 
       <main className="min-h-screen flex flex-col items-center justify-center px-6 py-24">
         {/* Hero */}
-        <section className="text-center animate-fade-in">
-          <h1 className="text-5xl sm:text-6xl font-bold tracking-tight text-text-primary">
+        <section className="flex flex-col items-center animate-fade-in">
+          {m.avatar && (
+            <img
+              src={m.avatar}
+              alt={m.name}
+              className="w-28 h-28 rounded-full object-cover border-2 border-border mb-6"
+            />
+          )}
+          <h1 className="text-5xl sm:text-6xl font-bold tracking-tight text-text-primary text-center">
             {m.name}
           </h1>
           <p className="mt-4 text-xl text-text-secondary">{m.tagline}</p>
@@ -37,7 +44,7 @@ export default function Home() {
         </nav>
 
         {/* Projects */}
-        <section className="mt-20 w-full max-w-lg animate-fade-in delay-2">
+        <section className="mt-20 w-full max-w-2xl animate-fade-in delay-2">
           <SectionHeading>Projects</SectionHeading>
           <div className="space-y-4">
             {m.projects.map((p) => (
@@ -50,7 +57,7 @@ export default function Home() {
         </section>
 
         {/* Resume */}
-        <section className="mt-20 w-full max-w-lg animate-fade-in delay-3">
+        <section className="mt-20 w-full max-w-2xl animate-fade-in delay-3">
           <SectionHeading>Resume</SectionHeading>
 
           {m.resume.summary && (
@@ -62,7 +69,15 @@ export default function Home() {
           {/* Experience */}
           <div className="space-y-8">
             {m.resume.experience.map((entry) => (
-              <div key={`${entry.org}-${entry.period}`}>
+              <div key={`${entry.org}-${entry.period}`} className="flex gap-4">
+                {entry.orgLogo && (
+                  <img
+                    src={entry.orgLogo}
+                    alt=""
+                    className="w-10 h-10 rounded-md object-contain shrink-0 mt-0.5"
+                  />
+                )}
+                <div className="flex-1 min-w-0">
                 <div className="flex items-baseline justify-between gap-4">
                   <h3 className="text-base font-semibold text-text-primary">
                     {entry.title}
@@ -71,7 +86,18 @@ export default function Home() {
                     {entry.period}
                   </span>
                 </div>
-                <p className="mt-0.5 text-sm text-accent/70">{entry.org}</p>
+                {entry.orgUrl ? (
+                  <a
+                    href={entry.orgUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-0.5 block text-sm text-accent/70 hover:text-accent transition-colors duration-200"
+                  >
+                    {entry.org}
+                  </a>
+                ) : (
+                  <p className="mt-0.5 text-sm text-accent/70">{entry.org}</p>
+                )}
                 <ul className="mt-2 space-y-1.5">
                   {entry.bullets.map((bullet, i) => (
                     <li
@@ -82,6 +108,7 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
+                </div>
               </div>
             ))}
           </div>
